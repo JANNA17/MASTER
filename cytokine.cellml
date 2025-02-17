@@ -1,0 +1,63 @@
+<?xml version='1.0'?>
+<model name="cytokines" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#">
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nm">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="environment">
+        <variable name="time" public_interface="out" units="s"/>
+    </component>
+    <component name="TNF">
+        <variable name="time" public_interface="in" units="s"/>
+        <variable name="J31" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="6.53271e-5" name="kf31" units="first_order_rate_constant"/>
+        <variable initial_value="0" name="TNF" units="nm"/>
+        <variable initial_value="1010" name="ERKPP" units="nm"/>
+        <!--pub in later from hatakayama erkpp , this is dummy value fro stand alone model-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J31</ci>
+                <apply>
+                    <times/>
+                    <ci>kf31</ci>
+                    <ci>ERKPP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>TNF</ci>
+                </apply>
+                <ci>J31</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="TNF"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+</model>
