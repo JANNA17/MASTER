@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="zap70_activation" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#">
+    <!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+    <units name="nm">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="per_second">
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="per_nm_per_second">
+        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="nm_per_second">
+        <unit units="nm"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+    <component name="environment">
+        <variable name="t" public_interface="out" units="second"/>
+    </component>
+    <component name="zap70">
+        <variable name="t" public_interface="in" units="second"/>
+        <variable name="J1" units="nm_per_second"/>
+        <variable name="J2" units="nm_per_second"/>
+        <variable name="J3" units="nm_per_second"/>
+        <variable name="J4" units="nm_per_second"/>
+        <variable name="J5" units="nm_per_second"/>
+        <variable initial_value="0.00000195" name="k_f1" units="per_nm_per_second"/>
+        <variable initial_value="0.0116167" name="k_r1" units="per_nm_per_second"/>
+        <variable initial_value="0.0076167" name="k_f2" units="per_nm_per_second"/>
+        <variable initial_value="0.0007" name="k_r2" units="per_second"/>
+        <variable initial_value="9.5e-8" name="k_f3" units="per_nm_per_second"/>
+        <variable initial_value="6e-7" name="k_r3" units="per_nm_per_second"/>
+        <variable initial_value="0.0007" name="k_f4" units="per_second"/>
+        <variable initial_value="0.0076167" name="k_r4" units="per_nm_per_second"/>
+        <variable initial_value="0.002" name="k_f5" units="per_second"/>
+        <variable initial_value="600" name="itam" units="nm"/>
+        <variable initial_value="2006.15" name="plck" units="nm"/>
+        <variable initial_value="1000" name="zap70" units="nm"/>
+        <variable initial_value="0" name="pitam" units="nm"/>
+        <variable initial_value="0" name="lck" units="nm"/>
+        <variable initial_value="0" name="pitamzap70" units="nm"/>
+        <variable initial_value="0" name="pitampzap70" units="nm"/>
+        <variable initial_value="0" name="pzap70" units="nm"/>
+        <variable initial_value="0" name="pitamp2zap70" units="nm"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>itam</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r1</ci>
+                        <ci>pitam</ci>
+                        <ci>lck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>pitam</ci>
+                        <ci>zap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r2</ci>
+                        <ci>pitamzap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f3</ci>
+                        <ci>pitamzap70</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r3</ci>
+                        <ci>pitampzap70</ci>
+                        <ci>lck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f4</ci>
+                        <ci>pitampzap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_r4</ci>
+                        <ci>pitam</ci>
+                        <ci>pzap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J5</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f5</ci>
+                    <ci>pitampzap70</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>itam</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pitam</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J1</ci>
+                        <ci>J2</ci>
+                    </apply>
+                    <ci>J4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pitamzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pitampzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J3</ci>
+                        <ci>J4</ci>
+                    </apply>
+                    <ci>J5</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pzap70</ci>
+                </apply>
+                <ci>J4</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pitamp2zap70</ci>
+                </apply>
+                <ci>J5</ci>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="zap70" component_2="environment"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+</model>
