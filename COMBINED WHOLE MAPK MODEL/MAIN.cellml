@@ -1,0 +1,644 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="dS2cytokines" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- def import using "CYTOKINES.cellml" for
+   comp cytokines using comp cytokines;
+enddef;-->
+    <!-- def import using "ligand receptor.cellml" for
+   comp HC_KIR using comp HC_KIR;
+enddef;-->
+    <!--   def import using "zap70.cellml" for
+     comp zap70 using comp zap70;
+  enddef;-->
+    <import xlink:href="HATAKEYAMA.cellml">
+        <component component_ref="ERK" name="ERK"/>
+        <component component_ref="MEK" name="MEK"/>
+        <component component_ref="RAF" name="RAF"/>
+        <component component_ref="Akt" name="Akt"/>
+        <component component_ref="RasGDPtoRasGTP" name="RasGDPtoRasGTP"/>
+        <component component_ref="geometry" name="geometry"/>
+        <component component_ref="PI3K" name="PI3K"/>
+    </import>
+    <!--
+        *******************************************************
+        ***         U   N   I   T   S                       ***
+        *******************************************************
+-->
+    <units name="s">
+        <unit units="second"/>
+    </units>
+    <units name="nm">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="nm"/>
+        <unit exponent="-1" units="s"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="s"/>
+    </units>
+    <component name="environment">
+        <variable name="t" public_interface="out" units="s"/>
+    </component>
+    <component name="ds2cytokines_parameter">
+        <variable name="kf5" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kb5" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf23" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kb23" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf14" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k14" public_interface="in" units="nm"/>
+        <variable name="kf29" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kb29" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf1" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kb1" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf2" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kb2" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf34" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb34" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="V4" public_interface="in" units="flux"/>
+        <variable name="k4" public_interface="in" units="nm"/>
+        <variable name="kf6" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb6" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf7" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kb7" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf8" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb8" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="kf9" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb9" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="V10" public_interface="in" units="flux"/>
+        <variable name="k10" public_interface="in" units="nm"/>
+        <variable name="kf24" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb24" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kf25" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="kb25" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="V26" public_interface="in" units="flux"/>
+        <variable name="k26" public_interface="in" units="nm"/>
+        <variable name="two" public_interface="in" units="dimensionless"/>
+        <variable name="kf11" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k11" public_interface="in" units="nm"/>
+        <variable name="V12" public_interface="in" units="flux"/>
+        <variable name="k12" public_interface="in" units="nm"/>
+        <variable name="kf13" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k13" public_interface="in" units="nm"/>
+        <variable name="E" public_interface="in" units="nm"/>
+        <variable name="kf27" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k27" public_interface="in" units="nm"/>
+        <variable name="V28" public_interface="in" units="flux"/>
+        <variable name="k28" public_interface="in" units="nm"/>
+        <variable name="V30" public_interface="in" units="flux"/>
+        <variable name="k30" public_interface="in" units="nm"/>
+        <variable name="kf31" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k31a" public_interface="in" units="nm"/>
+        <variable name="V32" public_interface="in" units="flux"/>
+        <variable name="k32" public_interface="in" units="nm"/>
+        <variable name="kf33" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k33a" public_interface="in" units="nm"/>
+        <variable name="k16a" public_interface="in" units="nm"/>
+        <variable name="k18a" public_interface="in" units="nm"/>
+        <variable name="PP2A" public_interface="in" units="nm"/>
+        <variable name="one" public_interface="in" units="dimensionless"/>
+        <variable name="PP2Aa" public_interface="in" units="nm"/>
+        <variable name="kf15" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k15" public_interface="in" units="nm"/>
+        <variable name="kf16" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k16" public_interface="in" units="nm"/>
+        <variable name="kf17" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k17" public_interface="in" units="nm"/>
+        <variable name="kf18" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k18" public_interface="in" units="nm"/>
+        <variable name="k31" public_interface="in" units="nm"/>
+        <variable name="k33" public_interface="in" units="nm"/>
+        <variable name="one_a" public_interface="in" units="dimensionless"/>
+        <variable name="MKP3" public_interface="in" units="nm"/>
+        <variable name="kf19" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k19" public_interface="in" units="nm"/>
+        <variable name="kf20" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k20" public_interface="in" units="nm"/>
+        <variable name="kf21" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k21" public_interface="in" units="nm"/>
+        <variable name="kf22" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="k22" public_interface="in" units="nm"/>
+        <variable name="one_b" public_interface="in" units="dimensionless"/>
+    </component>
+    <component name="HC_KIR">
+        <variable name="t" public_interface="in" units="s"/>
+        <variable name="J41" units="flux"/>
+        <variable initial_value="6.641e-12" name="kf41" units="second_order_rate_constant"/>
+        <variable initial_value="0.001866" name="kb41" units="first_order_rate_constant"/>
+        <variable initial_value="100" name="hC" units="nm"/>
+        <variable initial_value="200" name="dS2" units="nm"/>
+        <variable initial_value="0" name="hCdS2" public_interface="out" units="nm"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J41</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>kf41</ci>
+                        <ci>hC</ci>
+                        <ci>dS2</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>kb41</ci>
+                        <ci>hCdS2</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hC</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J41</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>dS2</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J41</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hCdS2</ci>
+                </apply>
+                <ci>J41</ci>
+            </apply>
+        </math>
+    </component>
+    <component name="zap70">
+        <variable name="t" public_interface="in" units="s"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable name="J3" units="flux"/>
+        <variable name="J4" units="flux"/>
+        <variable name="J43" public_interface="in" units="flux"/>
+        <variable name="J48" public_interface="in" units="flux"/>
+        <variable name="J49" public_interface="in" units="flux"/>
+        <variable name="J52" public_interface="in" units="flux"/>
+        <variable name="hCdS2" public_interface="in" units="nm"/>
+        <variable name="J5" units="flux"/>
+        <variable name="J42" units="flux"/>
+        <!--{pub: in};-->
+        <variable initial_value="0.000001" name="k_f42" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1" name="k_b42" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.207674" name="k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="2.36605" name="k_b1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="4.42087" name="k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0899708" name="k_b2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.000164" name="k_f3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="1.3486" name="k_b3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="14.2979" name="k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="57642.4" name="k_b4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="42923.6" name="k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0" name="hCDAP12" units="nm"/>
+        <variable initial_value="0.600" name="DAP12" units="nm"/>
+        <variable initial_value="2.00615" name="plck" units="nm"/>
+        <variable initial_value="1" name="zap70" units="nm"/>
+        <variable initial_value="0" name="phCDAP12" units="nm"/>
+        <variable initial_value="0" name="lck" units="nm"/>
+        <variable initial_value="0" name="phCDAP12zap70" units="nm"/>
+        <variable initial_value="0" name="phCDAP12pzap70" units="nm"/>
+        <variable initial_value="0" name="pzap70" public_interface="out" units="nm"/>
+        <variable initial_value="0" name="phCDAP12p2zap70" units="nm"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J42</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f42</ci>
+                        <ci>hCdS2</ci>
+                        <ci>DAP12</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_b42</ci>
+                        <ci>hCDAP12</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f1</ci>
+                        <ci>hCDAP12</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_b1</ci>
+                        <ci>phCDAP12</ci>
+                        <ci>lck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J2</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f2</ci>
+                        <ci>phCDAP12</ci>
+                        <ci>zap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_b2</ci>
+                        <ci>phCDAP12zap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f3</ci>
+                        <ci>phCDAP12zap70</ci>
+                        <ci>plck</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_b3</ci>
+                        <ci>phCDAP12pzap70</ci>
+                        <ci>lck</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J4</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_f4</ci>
+                        <ci>phCDAP12pzap70</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>k_b4</ci>
+                        <ci>phCDAP12</ci>
+                        <ci>pzap70</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J5</ci>
+                <apply>
+                    <times/>
+                    <ci>k_f5</ci>
+                    <ci>phCDAP12pzap70</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>DAP12</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J42</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>hCDAP12</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J42</ci>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>phCDAP12</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>J1</ci>
+                        <ci>J2</ci>
+                    </apply>
+                    <ci>J4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>phCDAP12zap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                    <ci>J3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>phCDAP12pzap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>J3</ci>
+                        <ci>J4</ci>
+                    </apply>
+                    <ci>J5</ci>
+                </apply>
+            </apply>
+            <!---J5;-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>zap70</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>pzap70</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <minus/>
+                                <ci>J4</ci>
+                                <ci>J43</ci>
+                            </apply>
+                            <ci>J48</ci>
+                        </apply>
+                        <ci>J49</ci>
+                    </apply>
+                    <ci>J52</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>phCDAP12p2zap70</ci>
+                </apply>
+                <ci>J5</ci>
+            </apply>
+        </math>
+    </component>
+    <component name="TNF">
+        <variable name="t" public_interface="in" units="s"/>
+        <variable name="ERKPP" public_interface="in" units="nm"/>
+        <variable initial_value="0.00013127" name="kf31" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0" name="TNF" units="nm"/>
+        <variable name="J31" units="flux"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J31</ci>
+                <apply>
+                    <times/>
+                    <ci>kf31</ci>
+                    <ci>ERKPP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>TNF</ci>
+                </apply>
+                <ci>J31</ci>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="geometry">
+            <component_ref component="ds2cytokines_parameter"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="environment" component_2="geometry"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="PI3K"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="zap70"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="HC_KIR"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="TNF"/>
+        <map_variables variable_1="t" variable_2="t"/>
+    </connection>
+    <connection>
+        <map_components component_1="zap70" component_2="HC_KIR"/>
+        <map_variables variable_1="hCdS2" variable_2="hCdS2"/>
+    </connection>
+    <connection>
+        <map_components component_1="zap70" component_2="PI3K"/>
+        <map_variables variable_1="pzap70" variable_2="pzap70"/>
+        <map_variables variable_1="J43" variable_2="J43"/>
+        <map_variables variable_1="J48" variable_2="J48"/>
+        <map_variables variable_1="J49" variable_2="J49"/>
+        <map_variables variable_1="J52" variable_2="J52"/>
+    </connection>
+    <connection>
+        <map_components component_1="geometry" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="kf5" variable_2="kf5"/>
+        <map_variables variable_1="kb5" variable_2="kb5"/>
+        <map_variables variable_1="kf23" variable_2="kf23"/>
+        <map_variables variable_1="kb23" variable_2="kb23"/>
+        <map_variables variable_1="kf14" variable_2="kf14"/>
+        <map_variables variable_1="k14" variable_2="k14"/>
+        <map_variables variable_1="kf29" variable_2="kf29"/>
+        <map_variables variable_1="kb29" variable_2="kb29"/>
+    </connection>
+    <connection>
+        <map_components component_1="PI3K" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="kf1" variable_2="kf1"/>
+        <map_variables variable_1="kb1" variable_2="kb1"/>
+        <map_variables variable_1="kf2" variable_2="kf2"/>
+        <map_variables variable_1="kb2" variable_2="kb2"/>
+        <map_variables variable_1="kf3" variable_2="kf3"/>
+        <map_variables variable_1="kb3" variable_2="kb3"/>
+        <map_variables variable_1="kf34" variable_2="kf34"/>
+        <map_variables variable_1="kb34" variable_2="kb34"/>
+        <map_variables variable_1="V4" variable_2="V4"/>
+        <map_variables variable_1="k4" variable_2="k4"/>
+        <map_variables variable_1="kf6" variable_2="kf6"/>
+        <map_variables variable_1="kb6" variable_2="kb6"/>
+        <map_variables variable_1="kf7" variable_2="kf7"/>
+        <map_variables variable_1="kb7" variable_2="kb7"/>
+        <map_variables variable_1="kf8" variable_2="kf8"/>
+        <map_variables variable_1="kb8" variable_2="kb8"/>
+        <map_variables variable_1="kf9" variable_2="kf9"/>
+        <map_variables variable_1="kb9" variable_2="kb9"/>
+        <map_variables variable_1="V10" variable_2="V10"/>
+        <map_variables variable_1="k10" variable_2="k10"/>
+        <map_variables variable_1="kf24" variable_2="kf24"/>
+        <map_variables variable_1="kb24" variable_2="kb24"/>
+        <map_variables variable_1="kf25" variable_2="kf25"/>
+        <map_variables variable_1="kb25" variable_2="kb25"/>
+        <map_variables variable_1="V26" variable_2="V26"/>
+        <map_variables variable_1="k26" variable_2="k26"/>
+        <map_variables variable_1="two" variable_2="two"/>
+    </connection>
+    <connection>
+        <map_components component_1="RasGDPtoRasGTP" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="kf11" variable_2="kf11"/>
+        <map_variables variable_1="k11" variable_2="k11"/>
+        <map_variables variable_1="V12" variable_2="V12"/>
+        <map_variables variable_1="k12" variable_2="k12"/>
+    </connection>
+    <connection>
+        <map_components component_1="RAF" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="kf13" variable_2="kf13"/>
+        <map_variables variable_1="k13" variable_2="k13"/>
+        <map_variables variable_1="E" variable_2="E"/>
+    </connection>
+    <connection>
+        <map_components component_1="Akt" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="kf27" variable_2="kf27"/>
+        <map_variables variable_1="k27" variable_2="k27"/>
+        <map_variables variable_1="V28" variable_2="V28"/>
+        <map_variables variable_1="k28" variable_2="k28"/>
+        <map_variables variable_1="V30" variable_2="V30"/>
+        <map_variables variable_1="k30" variable_2="k30"/>
+        <map_variables variable_1="kf31" variable_2="kf31"/>
+        <map_variables variable_1="k31a" variable_2="k31a"/>
+        <map_variables variable_1="V32" variable_2="V32"/>
+        <map_variables variable_1="k32" variable_2="k32"/>
+        <map_variables variable_1="kf33" variable_2="kf33"/>
+        <map_variables variable_1="k33a" variable_2="k33a"/>
+        <map_variables variable_1="k16a" variable_2="k16a"/>
+        <map_variables variable_1="k18a" variable_2="k18a"/>
+        <map_variables variable_1="PP2A" variable_2="PP2A"/>
+        <map_variables variable_1="one" variable_2="one"/>
+    </connection>
+    <connection>
+        <map_components component_1="MEK" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="PP2Aa" variable_2="PP2Aa"/>
+        <map_variables variable_1="kf15" variable_2="kf15"/>
+        <map_variables variable_1="k15" variable_2="k15"/>
+        <map_variables variable_1="kf16" variable_2="kf16"/>
+        <map_variables variable_1="k16" variable_2="k16"/>
+        <map_variables variable_1="kf17" variable_2="kf17"/>
+        <map_variables variable_1="k17" variable_2="k17"/>
+        <map_variables variable_1="kf18" variable_2="kf18"/>
+        <map_variables variable_1="k18" variable_2="k18"/>
+        <map_variables variable_1="k31" variable_2="k31"/>
+        <map_variables variable_1="k33" variable_2="k33"/>
+        <map_variables variable_1="one_a" variable_2="one_a"/>
+    </connection>
+    <connection>
+        <map_components component_1="ERK" component_2="TNF"/>
+        <map_variables variable_1="ERKPP" variable_2="ERKPP"/>
+    </connection>
+    <connection>
+        <map_components component_1="ERK" component_2="ds2cytokines_parameter"/>
+        <map_variables variable_1="MKP3" variable_2="MKP3"/>
+        <map_variables variable_1="kf19" variable_2="kf19"/>
+        <map_variables variable_1="k19" variable_2="k19"/>
+        <map_variables variable_1="kf20" variable_2="kf20"/>
+        <map_variables variable_1="k20" variable_2="k20"/>
+        <map_variables variable_1="kf21" variable_2="kf21"/>
+        <map_variables variable_1="k21" variable_2="k21"/>
+        <map_variables variable_1="kf22" variable_2="kf22"/>
+        <map_variables variable_1="k22" variable_2="k22"/>
+        <map_variables variable_1="one_b" variable_2="one_b"/>
+        <!--  vars ERKPP and ERKPP;-->
+    </connection>
+</model>
