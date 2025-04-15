@@ -111,15 +111,15 @@
         <!--{pub: in};-->
         <variable initial_value="0.000001" name="k_f42" public_interface="out" units="second_order_rate_constant"/>
         <variable initial_value="1" name="k_b42" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.207674" name="k_f1" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="2.36605" name="k_b1" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="4.42087" name="k_f2" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="0.0899708" name="k_b2" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="0.000164" name="k_f3" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="1.3486" name="k_b3" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="14.2979" name="k_f4" public_interface="out" units="first_order_rate_constant"/>
-        <variable initial_value="57642.4" name="k_b4" public_interface="out" units="second_order_rate_constant"/>
-        <variable initial_value="42923.6" name="k_f5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.00000195" name="k_f1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0116167" name="k_b1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0076167" name="k_f2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_b2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="9.5e-8" name="k_f3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0000006" name="k_b3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.0007" name="k_f4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.0076167" name="k_b4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="0.002" name="k_f5" public_interface="out" units="first_order_rate_constant"/>
         <variable initial_value="0" name="hCDAP12" units="nm"/>
         <variable initial_value="0.600" name="DAP12" units="nm"/>
         <variable initial_value="2.00615" name="plck" units="nm"/>
