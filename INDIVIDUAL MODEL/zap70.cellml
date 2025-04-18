@@ -40,7 +40,7 @@
         <variable initial_value="0.0076167" name="k_f2" units="per_nm_per_second"/>
         <variable initial_value="0.0007" name="k_r2" units="per_second"/>
         <variable initial_value="9.5e-8" name="k_f3" units="per_nm_per_second"/>
-        <variable initial_value="6e-7" name="k_r3" units="per_nm_per_second"/>
+        <variable initial_value="0.0000006" name="k_r3" units="per_nm_per_second"/>
         <variable initial_value="0.0007" name="k_f4" units="per_second"/>
         <variable initial_value="0.0076167" name="k_r4" units="per_nm_per_second"/>
         <variable initial_value="0.002" name="k_f5" units="per_second"/>
